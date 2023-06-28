@@ -2,6 +2,10 @@
 
 import axios from 'axios';
 
+definePageMeta({
+    middleware: 'redirect'
+})
+
 const username = ref('');
 const password = ref('');
 const confirm = ref('');

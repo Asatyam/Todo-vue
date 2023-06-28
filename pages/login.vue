@@ -1,10 +1,13 @@
 <script setup lang="ts">
 
+definePageMeta({
+    middleware:'redirect'
+})
 import axios from 'axios';
 
 const username = ref('');
 const password = ref('');
-let errors: never[] = []
+const errors = ref('');
 
 const handleSubmit = (evt: Event) => {
 
@@ -19,8 +22,8 @@ const handleSubmit = (evt: Event) => {
             navigateTo('/');
         })
         .catch((err) => {
-            errors = err.response.data.info.message;
-            console.log(errors);
+            errors.value = err.response.data.info.message;
+            console.log(errors.value);
         })
 }
 </script>
@@ -36,15 +39,15 @@ const handleSubmit = (evt: Event) => {
                 <label class="block font-medium text-md mt-4 mb-2 text-center">Password<span
                         class="text-red-900">*</span></label>
                 <input v-model="password" type="password" name="password" required minlength="8"
-                    class=" outline-none w-80 block  px-3 py-1  bg-white border border-slate-300 invalid:border-red-100 invalid:border-2 invalid:text-pink-400 focus:invalid:border-pink-500" />
+                    class=" outline-none w-80 block   px-3 py-1  bg-white border border-slate-300 invalid:border-red-100 invalid:border-2 invalid:text-pink-400 focus:invalid:border-pink-500" />
+                <div class="errors text-center m-3 text-red-700 " v-if="errors">
+                    <li>{{ errors }}</li>
+                 </div>
                 <button type="submit"
-                    class="block mt-5 bg-sky-900 font-medium hover:bg-teal-500  transition-2s w-5/6 py-2 text-white text-lg rounded-md content-center self-center m-auto trainsition ease-out duration-100">
+                    class="block mt-3 bg-sky-900 font-medium hover:bg-teal-500  transition-2s w-5/6 py-2 text-white text-lg rounded-md content-center self-center m-auto trainsition ease-out duration-100">
                     Login
                 </button>
-                <div class="errors text-center mt-2 text-red-700 " v-if="errors">
-                    <li>{{errors}}</li>
-                  
-                </div>
+                
             </form>
             <p class="text-center p-2 font-medium text-teal-700 text-lg">New user?
                 <NuxtLink to="/signup" class="text-blue-800 font-bold hover:underline">

@@ -1,8 +1,13 @@
+<script setup>
+
+definePageMeta({
+    middleware: 'auth'
+})
+</script>
+
 <template>
     <div>
         <Test />
-        <AppAlert>
             This is auto generated
-        </AppAlert>
     </div>
 </template>
