@@ -28,4 +28,8 @@ definePageMeta({
   opacity: 0;
   filter: blur(1rem);
 }
+body{
+  min-height: 100vh;
+  width: 100%;
+}
 </style>
