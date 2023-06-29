@@ -17,9 +17,7 @@ watchEffect(() => {
   axios
     .get(`http://localhost:4000/api/projects/${props.current}`, config)
     .then((res) => {
-      console.log(res.data.todos);
       todos.value = res.data.todos;
-      console.log(todos.value[0].title);
     })
     .catch(console.log);
     
