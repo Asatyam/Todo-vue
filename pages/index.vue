@@ -4,7 +4,13 @@
 definePageMeta({
     middleware: 'auth'
 })
-const sidebar = ref(false);
+
+const current = ref('');
+
+const changeProject = (id)=>{
+    current.value = id
+}
+
 </script>
 
 <template>
@@ -14,10 +20,12 @@ const sidebar = ref(false);
         <Header />
         <div class="grid relative grid-cols-[180px_1fr] ">
 
-            <div class="sidebar bg-sky-200 text-gray-900 font-light">
-                <Sidebar/>
+            <div class="sidebar  text-gray-900 font-light">
+                <Sidebar :current="current" @change-project="changeProject"/>
             </div>
-            <div class=" bg-teal-500"></div>
+            <div class=" bg-teal-500">
+                <Content :current = "current" />
+            </div>
         </div>
     </main>
 </template>
