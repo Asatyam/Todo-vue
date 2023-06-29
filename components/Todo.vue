@@ -24,6 +24,7 @@ const description =ref(todo.description);
 const dueDate = ref(todo.dueDate);
 const priority = ref(todo.priority);
 
+const errors = ref([]);
 
 const changeStatus = (e) => {
   const body = {
@@ -70,8 +71,12 @@ const handleSubmit = (e)=>{
     .then((res) => {
       console.log(res);
       showForm.value = false
+
     })
-    .catch(console.log);
+    .catch(err=>{
+        errors.value = err.response.data.errors.errors;
+        console.log(errors.value);
+    });
 }
 const handleReset = (e)=>{
     title.value = todo.title;
@@ -151,11 +156,15 @@ const handleDelete = (e)=>{
     <Transition name="form">
       <div v-if="showForm && showDetails">
         <form @submit.prevent="handleSubmit">
+            <div class="text-red-300 m-5 mt-2" v-if="errors.length>0 && !title">
+            <p v-for="error in errors" :key="error.msg"> {{ error.msg}} </p>
+         </div>
             <div class="ml-5 mt-2">
             <label for="title" class="">Title</label>
             <input
               v-model="title"
               id="title"
+              required
               class="mt-1 ml-5 px-2 py-1 w-96 bg-indigo-400  outline-none "
             />
           </div>
@@ -190,6 +199,7 @@ const handleDelete = (e)=>{
               <option>Low</option>
             </select>
           </div>
+          
           <button
             @click="showForm = false"
             class="ml-5 mt-2 border-red-300 border-2 px-2"
