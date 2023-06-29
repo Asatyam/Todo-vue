@@ -10,12 +10,14 @@ const sidebar = ref(false);
 <template>
 
     <main>
+
         <Header />
-        <div class="grid relative bg-sky-100 grid-cols-[200px_1fr]">
-            <div class="bg-green-400 ">
+        <div class="grid relative grid-cols-[180px_1fr] ">
+
+            <div class="sidebar bg-sky-200 text-gray-900 font-light">
                 <Sidebar/>
             </div>
-            <div class="bg-red-500"></div>
+            <div class=" bg-teal-500"></div>
         </div>
     </main>
 </template>
@@ -26,5 +28,4 @@ main{
     display: grid;
     grid-template-rows: 70px 1fr;
 }
-
 </style>
