@@ -40,8 +40,6 @@ const addNewTodo = ()=>{
         .then(res => {          
             console.log(res);
             todos.value = [...todos.value, res.data.result];
-            const instance = getCurrentInstance()
-            instance.proxy.$forceUpdate();
             
         })
         .catch(console.log);

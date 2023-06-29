@@ -8,6 +8,7 @@ definePageMeta({
 const current = ref('');
 
 const changeProject = (id)=>{
+    console.log(id);
     current.value = id
 }
 
@@ -34,6 +35,6 @@ const changeProject = (id)=>{
 main{
     height: 100vh;
     display: grid;
-    grid-template-rows: 70px 1fr;
+    grid-template-rows: 40px 1fr;
 }
 </style>
