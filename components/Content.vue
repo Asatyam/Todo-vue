@@ -59,7 +59,7 @@ const addNewTodo = ()=>{
                             <option>Medium</option>
                             <option>Low</option>
                         </select>
-                        <button type="submit" class="">Add</button>
+                        <button type="submit" class=" border-red-300 border-2 px-2">Add</button>
         </div>
     </form>
         <Todo v-for="todo in todos" :key="todo.id" :todo="todo"/>
