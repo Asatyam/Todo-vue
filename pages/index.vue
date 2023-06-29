@@ -1,16 +1,18 @@
 <script setup>
 
+
 definePageMeta({
     middleware: 'auth'
 })
+const sidebar = ref(false);
 </script>
 
 <template>
 
     <main>
         <Header />
-        <div class="grid grid-cols-[200px_1fr]">
-            <div class="bg-green-400">
+        <div class="grid relative bg-sky-100 grid-cols-[200px_1fr]">
+            <div class="bg-green-400 ">
                 <Sidebar/>
             </div>
             <div class="bg-red-500"></div>
@@ -21,7 +23,6 @@ definePageMeta({
 <style scoped>
 main{
     height: 100vh;
-
     display: grid;
     grid-template-rows: 70px 1fr;
 }
