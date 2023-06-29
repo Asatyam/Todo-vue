@@ -23,8 +23,8 @@ const changeProject = (id)=>{
             <div class="sidebar  text-gray-900 font-light">
                 <Sidebar :current="current" @change-project="changeProject"/>
             </div>
-            <div class=" bg-teal-500">
-                <Content :current = "current" />
+            <div class=" bg-indigo-500  font-semibold text-white">
+                <Content :current = "current"  />
             </div>
         </div>
     </main>
