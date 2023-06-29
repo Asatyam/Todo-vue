@@ -16,6 +16,8 @@ if (todo.priority === 'High') {
 const checked = ref(todo.completed);
 const showDetails = ref(false);
 const showForm = ref(false);
+const showDelete = ref(false);
+const deleted = ref(false);
 
 const title = ref(todo.title);
 const description =ref(todo.description);
@@ -77,10 +79,28 @@ const handleReset = (e)=>{
     dueDate = todo.dueDate;
     priority = todo.priority;
 }
+const handleDelete = (e)=>{
+  const token = localStorage.getItem('token');
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  axios
+    .delete(
+      `http://localhost:4000/api/projects/:projectid/todos/${todo.id}`,
+      config
+    )
+    .then((res) => {
+      console.log(res);
+      deleted.value = true;
+    })
+    .catch(console.log);
+}
 </script>
 
 <template>
-  <div class="border-b-2 border-b-slate-400 p-2 transition-all">
+  <div v-if="!deleted" class="border-b-2 border-b-slate-400 p-2 transition-all">
     <input
       @change="changeStatus"
       v-model="checked"
@@ -117,7 +137,14 @@ const handleReset = (e)=>{
         >
           Edit
         </button>
-        <button class="ml-5 mt-2 border-red-300 border-2 px-2">Delete</button>
+        <button class="ml-5 mt-2 border-red-300 border-2 px-2" @click="showDelete=true">Delete</button>
+        <Transition>
+            <div class="ml-5 mt-2" v-if="showDelete">
+                <span>Are you sure?</span>
+                <button class="ml-5 mt-2 border-red-300 border-2 px-2" @click="handleDelete">Yes, Delete</button>
+                <button class="ml-5 mt-2 border-red-300 border-2 px-2" @click="showDelete=false">No, Cancel</button>
+            </div>
+        </Transition>
       </div>
     </Transition>
 
