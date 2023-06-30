@@ -20,7 +20,7 @@ const showDelete = ref(false);
 const deleted = ref(false);
 
 const title = ref(todo.title);
-const description =ref(todo.description);
+const description = ref(todo.description);
 const dueDate = ref(todo.dueDate);
 const priority = ref(todo.priority);
 
@@ -40,7 +40,7 @@ const changeStatus = (e) => {
   };
   axios
     .put(
-      `http://localhost:4000/api/projects/:projectid/todos/${todo.id}`,
+      `https://todo-api-58q4.onrender.com/api/projects/:projectid/todos/${todo.id}`,
       body,
       config
     )
@@ -49,14 +49,14 @@ const changeStatus = (e) => {
     })
     .catch(console.log);
 };
-const handleSubmit = (e)=>{
-    const body = {
-        title:title.value,
-        description:description.value,
-        dueDate : dueDate.value,
-        priority : priority.value,
-    }
-    const token = localStorage.getItem('token');
+const handleSubmit = (e) => {
+  const body = {
+    title: title.value,
+    description: description.value,
+    dueDate: dueDate.value,
+    priority: priority.value,
+  };
+  const token = localStorage.getItem('token');
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -64,27 +64,26 @@ const handleSubmit = (e)=>{
   };
   axios
     .put(
-      `http://localhost:4000/api/projects/:projectid/todos/${todo.id}`,
+      `https://todo-api-58q4.onrender.com/api/projects/:projectid/todos/${todo.id}`,
       body,
       config
     )
     .then((res) => {
       console.log(res);
-      showForm.value = false
-
+      showForm.value = false;
     })
-    .catch(err=>{
-        errors.value = err.response.data.errors.errors;
-        console.log(errors.value);
+    .catch((err) => {
+      errors.value = err.response.data.errors.errors;
+      console.log(errors.value);
     });
-}
-const handleReset = (e)=>{
-    title.value = todo.title;
-    description = todo.description;
-    dueDate = todo.dueDate;
-    priority = todo.priority;
-}
-const handleDelete = (e)=>{
+};
+const handleReset = (e) => {
+  title.value = todo.title;
+  description = todo.description;
+  dueDate = todo.dueDate;
+  priority = todo.priority;
+};
+const handleDelete = (e) => {
   const token = localStorage.getItem('token');
   const config = {
     headers: {
@@ -93,7 +92,7 @@ const handleDelete = (e)=>{
   };
   axios
     .delete(
-      `http://localhost:4000/api/projects/:projectid/todos/${todo.id}`,
+      `https://todo-api-58q4.onrender.com/api/projects/:projectid/todos/${todo.id}`,
       config
     )
     .then((res) => {
@@ -101,7 +100,7 @@ const handleDelete = (e)=>{
       deleted.value = true;
     })
     .catch(console.log);
-}
+};
 </script>
 
 <template>
@@ -142,13 +141,28 @@ const handleDelete = (e)=>{
         >
           Edit
         </button>
-        <button class="ml-5 mt-2 border-red-300 border-2 px-2" @click="showDelete=true">Delete</button>
+        <button
+          class="ml-5 mt-2 border-red-300 border-2 px-2"
+          @click="showDelete = true"
+        >
+          Delete
+        </button>
         <Transition>
-            <div class="ml-5 mt-2" v-if="showDelete">
-                <span>Are you sure?</span>
-                <button class="ml-5 mt-2 border-red-300 border-2 px-2" @click="handleDelete">Yes, Delete</button>
-                <button class="ml-5 mt-2 border-red-300 border-2 px-2" @click="showDelete=false">No, Cancel</button>
-            </div>
+          <div class="ml-5 mt-2" v-if="showDelete">
+            <span>Are you sure?</span>
+            <button
+              class="ml-5 mt-2 border-red-300 border-2 px-2"
+              @click="handleDelete"
+            >
+              Yes, Delete
+            </button>
+            <button
+              class="ml-5 mt-2 border-red-300 border-2 px-2"
+              @click="showDelete = false"
+            >
+              No, Cancel
+            </button>
+          </div>
         </Transition>
       </div>
     </Transition>
@@ -156,16 +170,16 @@ const handleDelete = (e)=>{
     <Transition name="form">
       <div v-if="showForm && showDetails">
         <form @submit.prevent="handleSubmit">
-            <div class="text-red-300 m-5 mt-2" v-if="errors.length>0 && !title">
-            <p v-for="error in errors" :key="error.msg"> {{ error.msg}} </p>
-         </div>
-            <div class="ml-5 mt-2">
+          <div class="text-red-300 m-5 mt-2" v-if="errors.length > 0 && !title">
+            <p v-for="error in errors" :key="error.msg">{{ error.msg }}</p>
+          </div>
+          <div class="ml-5 mt-2">
             <label for="title" class="">Title</label>
             <input
               v-model="title"
               id="title"
               required
-              class="mt-1 ml-5 px-2 py-1 w-96 bg-indigo-400  outline-none "
+              class="mt-1 ml-5 px-2 py-1 w-96 bg-indigo-400 outline-none"
             />
           </div>
           <div class="ml-5 mt-2">
@@ -199,14 +213,19 @@ const handleDelete = (e)=>{
               <option>Low</option>
             </select>
           </div>
-          
+
           <button
             @click="showForm = false"
             class="ml-5 mt-2 border-red-300 border-2 px-2"
           >
             Back
           </button>
-          <button @click="handleReset" class="ml-5 mt-2 border-red-300 border-2 px-2">Reset</button>
+          <button
+            @click="handleReset"
+            class="ml-5 mt-2 border-red-300 border-2 px-2"
+          >
+            Reset
+          </button>
           <button type="submit" class="ml-5 mt-2 border-red-300 border-2 px-2">
             Done
           </button>
