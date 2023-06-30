@@ -48,8 +48,16 @@ const addNewTodo = ()=>{
         .catch(console.log);
     newTodo.value = "";
 }
-function closeModal() {
-  showOptions.value = false
+const deleteProject = (e)=>{
+  const token = localStorage.getItem('token');
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        }
+    }
+  axios.delete(`http://localhost:4000/api/projects/${props.current}`, config)
+  .then(console.log)
+  .catch(console.log);
 }
 </script>
 
@@ -74,10 +82,10 @@ function closeModal() {
           </button>
           <Transition>
             <div v-if="showOptions" class=" bg-white absolute top-21 left-50 text-black w-50">
-              <button class="block border-slate-500 border-b-2 pr-3 pl-2 text-sm text-start py-1 w-full font-light hover:bg-blue-700 hover:text-white transition-colors">Sort by Due Date</button>
+              <!-- <button class="block border-slate-500 border-b-2 pr-3 pl-2 text-sm text-start py-1 w-full font-light hover:bg-blue-700 hover:text-white transition-colors">Sort by Due Date</button>
               <button class="block border-slate-500 border-b-2 pr-3 pl-2 text-sm text-start py-1 w-full font-light hover:bg-blue-700 hover:text-white transition-colors">Sort by Priority</button>
-              <button class="block border-slate-500 border-b-2 pr-3 pl-2 text-sm text-start py-1 w-full font-light hover:bg-blue-700 hover:text-white transition-colors">Update Project Name</button>
-              <button class="block border-slate-500 border-b-2 pr-3 pl-2 text-sm text-start py-1 w-full font-light hover:bg-blue-700 hover:text-white transition-colors">Delete Project</button>
+              <button class="block border-slate-500 border-b-2 pr-3 pl-2 text-sm text-start py-1 w-full font-light hover:bg-blue-700 hover:text-white transition-colors">Update Project Name</button> -->
+              <button class="block border-slate-500 border-b-2 pr-3 pl-2 text-sm text-start py-1 w-full font-light hover:bg-blue-700 hover:text-white transition-colors" @click="deleteProject">Delete Project</button>
             </div>
           </Transition>
         <Todo v-for="todo in todos" :key="todo.id" :todo="todo"/>
