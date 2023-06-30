@@ -50,7 +50,7 @@ const addNewTodo = ()=>{
   <div class="p-3">
 
     <form @submit.prevent = "addNewTodo">
-        <div class=" rounded grid grid-cols-[max-content_1fr_max-content_max-content] gap-4 bg-indigo-700 p-2 pl-8 pr-8  w- ml-auto mr-auto left-0 right-0 mb-6" >
+        <div class=" rounded grid grid-cols-[max-content_1fr_max-content_max-content] gap-4 bg-indigo-700 p-2 pl-4 pr-4  w- ml-auto mr-auto left-0 right-0 mb-6" >
                         <label for="newtodo"> + New Todo</label>
                         <input v-model="newTodo" id="newtodo" name="new" placeholder="Things to do " class="outline-none bg-indigo-500 pl-2 pr-2 rounded  text-white" />
                         <select v-model="priority" class="outline-none bg-indigo-500 pl-2 pr-2 rounded  text-white">
