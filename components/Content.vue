@@ -9,8 +9,6 @@ const showOptions = ref(false);
 const newTodo = ref('');
 const priority = ref('High');
 
-
-
 watchEffect(() => {
   const token = localStorage.getItem('token');
   const config = {
@@ -49,6 +47,7 @@ const addNewTodo = ()=>{
     newTodo.value = "";
 }
 const deleteProject = (e)=>{
+  showOptions.value = false
   const token = localStorage.getItem('token');
     const config = {
         headers: {
